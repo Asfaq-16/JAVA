@@ -1,0 +1,112 @@
+// Base class - Department
+class Department {
+    protected String studentName;
+    protected int year;
+
+    public void getStudentDetails() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter student name: ");
+        studentName = sc.nextLine();
+        
+        // Handle invalid input for year of study
+        while (true) {
+            try {
+                System.out.print("Enter year of study: ");
+                year = sc.nextInt();
+                if (year <= 0) {
+                    throw new IllegalArgumentException("Year must be a positive integer.");
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid year (integer).");
+                sc.next(); // Clear the invalid input
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    public void printBill() {
+        System.out.println("\n===== Student Fee Bill =====");
+        System.out.printf(" %-20s: %s%n", "Student Name", studentName);
+        System.out.printf(" %-20s: %d%n", "Year of Study", year);
+    }
+}
+
+// Derived class - Information Technology Department
+class ITDepartment extends Department {
+    private final int fee = 100000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Information Technology");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
+
+// Derived class - Computer Science Department
+class CSDepartment extends Department {
+    private final int fee = 120000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Computer Science");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
+
+// Derived class - Mechanical Department
+class MechanicalDepartment extends Department {
+    private final int fee = 70000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Mechanical");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
+
+// Derived class - Mechatronics Department
+class MechatronicsDepartment extends Department {
+    private final int fee = 80000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Mechatronics");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
+
+// Derived class - Civil Department
+class CivilDepartment extends Department {
+    private final int fee = 50000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Civil");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
+
+// Derived class - Architecture Department
+class ArchitectureDepartment extends Department {
+    private final int fee = 40000;
+
+    @Override
+    public void printBill() {
+        super.printBill();
+        System.out.printf(" %-20s: %s%n", "Department", "Architecture");
+        System.out.printf(" %-20s: $%,d%n", "Fee", fee);
+        System.out.println("============================\n");
+    }
+}
