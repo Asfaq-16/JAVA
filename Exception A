@@ -1,0 +1,118 @@
+import java.util.Scanner;
+
+class NegativeValueException extends Exception {
+    public NegativeValueException(String message) {
+        super(message);
+    }
+}
+
+class InvalidIDException extends Exception {
+    public InvalidIDException(String message) {
+        super(message);
+    }
+}
+
+class InvalidPhoneNumberException extends Exception {
+    public InvalidPhoneNumberException(String message) {
+        super(message);
+    }
+}
+
+class Applicant {
+    String name;
+    int id;
+    int age;
+    String phoneNumber;
+
+    public Applicant(String name, int id, int age, String phoneNumber) {
+        this.name = name;
+        this.id = id;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+    }
+
+    void display() {
+        System.out.println("Applicant Details:");
+        System.out.println("ID: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Contact Number: " + phoneNumber);
+    }
+}
+
+public class ApplicantManagementSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            String name = inputName(sc);
+            int id = inputID(sc);
+            int age = inputAge(sc);
+            String phoneNumber = inputPhoneNumber(sc);
+
+            Applicant applicant = new Applicant(name, id, age, phoneNumber);
+            System.out.println("\nApplicant successfully added!");
+            applicant.display();
+        } catch (Exception e) {
+            System.out.println("An error occurred while adding the applicant: " + e.getMessage());
+        } finally {
+            sc.close();
+        }
+    }
+
+    public static String inputName(Scanner sc) {
+        System.out.print("Please enter the applicant's name: ");
+        return sc.nextLine();
+    }
+
+    public static int inputID(Scanner sc) throws InvalidIDException {
+        while (true) {
+            System.out.print("Please enter the applicant's ID: ");
+            String input = sc.nextLine();
+            try {
+                int id = Integer.parseInt(input);
+                if (id <= 0) {
+                    throw new InvalidIDException("The ID must be a positive integer.");
+                }
+                return id;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: Please enter a valid integer for the ID.");
+            } catch (InvalidIDException e) {
+                System.out.println("Invalid input: " + e.getMessage());
+            }
+        }
+    }
+
+    public static int inputAge(Scanner sc) throws NegativeValueException {
+        while (true) {
+            System.out.print("Please enter the applicant's age: ");
+            String input = sc.nextLine();
+            try {
+                int age = Integer.parseInt(input);
+                if (age <= 0) {
+                    throw new NegativeValueException("Age must be a positive number.");
+                }
+                return age;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: Please enter a valid integer for age.");
+            } catch (NegativeValueException e) {
+                System.out.println("Invalid input: " + e.getMessage());
+            }
+        }
+    }
+
+    public static String inputPhoneNumber(Scanner sc) throws InvalidPhoneNumberException {
+        while (true) {
+            System.out.print("Please enter the phone number (10 digits): ");
+            String phoneNumber = sc.nextLine();
+            try {
+                if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d+")) {
+                    throw new InvalidPhoneNumberException("The phone number must be exactly 10 digits.");
+                }
+                return phoneNumber;
+            } catch (InvalidPhoneNumberException e) {
+                System.out.println("Invalid input: " + e.getMessage());
+            }
+        }
+    }
+}
